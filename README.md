@@ -52,7 +52,7 @@ analysis apache log, add attacker's source ip to iptables to block.
 <br>this tool will run in background as daemon process.
 <br>本程序将会以daemon进程的形式在后台运行。
 <br>
-<br>then everything is done, that's sample!
+<br>then everything is done, that's simple!
 <br>活干完了，就这么简单！
 
 * stop
