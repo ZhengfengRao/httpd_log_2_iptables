@@ -1,0 +1,38 @@
+cat /var/log/httpd/access_log|awk '{
+if($1 != "127.0.0.1"){
+	if(length($7) > 0)
+	{
+		if(substr($7, 0, 1) == "/")
+		{
+			split($7, array, "/"); 
+			if(array[2] != "" && !match(array[2], "article|tag|source|static|channel|favicon.ico|ui-designer|robots.txt"))
+			{
+				print $1
+			}
+		}
+		else{
+			print $1
+		}
+	}else
+	{
+		print $1
+	}
+}}'|sort|uniq -c|sort -nr|awk '{if($1 >= 10) {print $2}}'
+
+
+cat /var/log/httpd/access_log|awk '{if($1 != "127.0.0.1"){if(length($7) > 0){if(substr($7, 0, 1) == "/"){split($7, array, "/"); if(length(array[2]) >0 && !match(array[2], "article|tag|source|static|channel|favicon.ico|ui-designer|robots.txt")){print $1}}else{print $1}}else{print $1}}}'|sort|uniq -c|sort -nr|awk '{if($1 >= 10) {print $2}}'
+
+
+cat /var/log/httpd/access_log|awk '{if(!match($6,"GET|POST")){print $1}}'|sort|uniq|sort -nr
+cat /var/log/httpd/access_log|awk '{if(!match($6,\"GET|POST\")){print $1}}'|sort|uniq|sort -nr
+/
+/static/ui.js
+/favicon.ico
+
+http://qqzhwl.com
+119.84.69.62:80
+zc.yy.com:443
+www.battlenet.com.cn:443
+403
+https://www.baidu.com/
+

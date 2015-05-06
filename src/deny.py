@@ -35,13 +35,15 @@ def AddIptablesRule(ips):
         cmd = conf.iptables_command_prefix + ip + conf.iptables_command_suffix
         logging.info(cmd)
         os.system(cmd)
+    os.system("service iptables save")
+   
 
 def RunCommands(ips):
     new_ips = []
     for command in conf.analysis_commands:
         deny_list = os.popen(command, 'r').read().splitlines()
         for ip in deny_list:
-            if ip not in ips:
+            if ip not in ips and ip not in conf.white_list:
                 logging.info("found:" + ip)
                 ips.append(ip)
                 new_ips.append(ip)
@@ -52,6 +54,7 @@ def DoJob():
     result = RunCommands(deny_list)
     SaveDenyList(result[0])
     AddIptablesRule(result[1])
+    #AddIptablesRule(result[0])
 
 def CheckRoot():
     if os.geteuid() != 0:
